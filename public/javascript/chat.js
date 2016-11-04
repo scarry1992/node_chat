@@ -49,8 +49,6 @@ function processUserInput(chatApp, socket) {
     var message = $('#send-message').val(),
         systemMessage = false;
 
-    console.log(message.indexOf('/'));
-
     if (message.indexOf('/') == 0) {
         systemMessage = chatApp.processCommand(message);
         if (systemMessage) {
@@ -71,13 +69,12 @@ $(document).ready(function (result) {
     socket.on('nameResult', function (result) {
         var message;
 
-        if (result.message) {
+        if (result.success) {
             message = 'You are now known as '+result.name+'.';
         } else {
             message = result.message;
         }
         $('#messages').append(divSystemContentElement(message));
-        console.log('here2', message);
     });
     socket.on('joinResult', function (result) {
         $('#room').text(result.room);
